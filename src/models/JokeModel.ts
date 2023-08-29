@@ -9,6 +9,11 @@ export interface Joke {
 }
 
 export interface JokesState {
-  search: string;
+  isLoading: boolean;
   list: Joke[] | null;
+}
+
+export interface JokeSearchResponse {
+  total: number;
+  result: Joke[];
 }
