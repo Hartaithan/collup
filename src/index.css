@@ -11,6 +11,10 @@ body,
   width: 100%;
 }
 
+body {
+  font-family: "Fira Sans", sans-serif;
+}
+
 #root {
   display: flex;
   align-items: center;
