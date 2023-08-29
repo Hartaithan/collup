@@ -9,5 +9,6 @@ export interface Joke {
 }
 
 export interface JokesState {
+  search: string;
   list: Joke[] | null;
 }

@@ -1,21 +1,26 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { JokesState } from "../models/JokeModel";
 import type { RootState } from "../models/StoreModel";
 
 const initialState: JokesState = {
+  search: "",
   list: null,
 };
 
 export const jokesSlice = createSlice({
   name: "jokes",
   initialState,
-  reducers: {},
+  reducers: {
+    submitSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload;
+    },
+  },
 });
 
-export const actions = jokesSlice.actions;
+export const { submitSearch } = jokesSlice.actions;
 
+export const selectSearch = (state: RootState) => state.jokes.search;
 export const selectJokesList = (state: RootState) => state.jokes.list;
 
-const jokesReducer = jokesSlice.reducer;
-
-export default jokesReducer;
+export default jokesSlice.reducer;

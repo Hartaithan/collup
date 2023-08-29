@@ -1,5 +1,8 @@
-import type { FC } from "react";
+import type { ChangeEventHandler, FC } from "react";
 import { styled } from "styled-components";
+import useDebounce from "../hooks/useDebounce";
+import { submitSearch } from "../store/jokes";
+import { useDispatch } from "../hooks/useStore";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,9 +21,16 @@ const Input = styled.input`
 `;
 
 const SearchInput: FC = () => {
+  const dispatch = useDispatch();
+
+  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = useDebounce(
+    (e) => dispatch(submitSearch(e.target.value)),
+    500,
+  );
+
   return (
     <Wrapper>
-      <Input placeholder="Search..." />
+      <Input placeholder="Search..." onChange={handleSearchChange} />
     </Wrapper>
   );
 };
