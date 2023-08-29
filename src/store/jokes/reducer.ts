@@ -4,6 +4,7 @@ import { jokesSearch } from "./actions";
 
 const initialState: JokesState = {
   isLoading: false,
+  total: 0,
   list: null,
 };
 
@@ -17,7 +18,8 @@ export const jokesSlice = createSlice({
     });
     builder.addCase(jokesSearch.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.list = action.payload;
+      state.list = action.payload.result;
+      state.total = action.payload.total;
     });
     builder.addCase(jokesSearch.rejected, (state) => {
       state.isLoading = false;

@@ -10,6 +10,7 @@ export interface Joke {
 
 export interface JokesState {
   isLoading: boolean;
+  total: number;
   list: Joke[] | null;
 }
 

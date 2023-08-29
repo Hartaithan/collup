@@ -1,12 +1,15 @@
 import type { ChangeEventHandler, FC } from "react";
 import { styled } from "styled-components";
 import useDebounce from "../hooks/useDebounce";
-import { useDispatch } from "../hooks/useStore";
+import { useDispatch, useSelector } from "../hooks/useStore";
 import { jokesSearch } from "../store/jokes/actions";
+import { selectJokesTotal } from "../store/jokes/selectors";
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Input = styled.input`
@@ -20,8 +23,20 @@ const Input = styled.input`
   font-weight: 700;
 `;
 
+const Message = styled.p`
+  position: absolute;
+  top: 100%;
+  margin-top: 20px;
+  min-width: 626px;
+  color: #282626;
+  font-size: 16px;
+  font-weight: 400;
+  padding-left: 36px;
+`;
+
 const SearchInput: FC = () => {
   const dispatch = useDispatch();
+  const total = useSelector(selectJokesTotal);
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = useDebounce(
     (e) => {
@@ -35,6 +50,7 @@ const SearchInput: FC = () => {
   return (
     <Wrapper>
       <Input placeholder="Search..." onChange={handleSearchChange} />
+      {total > 0 && <Message>Found jokes: {total}</Message>}
     </Wrapper>
   );
 };
