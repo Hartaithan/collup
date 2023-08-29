@@ -31,6 +31,7 @@ const Message = styled.p`
   color: #282626;
   font-size: 16px;
   font-weight: 400;
+  font-family: "Montserrat";
   padding-left: 36px;
 `;
 
