@@ -1,9 +1,13 @@
-import type { FC } from "react";
+import { useState, type FC, useEffect } from "react";
 import { styled } from "styled-components";
 import { useSelector } from "../hooks/useStore";
-import { selectJokes } from "../store/jokes/selectors";
+import {
+  selectJokesListPagination,
+  selectJokesLoading,
+} from "../store/jokes/selectors";
 import Joke from "./Joke";
 import JokeSkeleton from "./JokeSkeleton";
+import { useIntersection } from "../hooks/useIntersection";
 
 const loaders = Array.from(Array(5).keys());
 
@@ -15,8 +19,25 @@ const Container = styled.div`
   gap: 20px;
 `;
 
+const Indicator = styled.div`
+  height: 1px;
+  width: 100%;
+  visibility: hidden;
+`;
+
 const JokeList: FC = () => {
-  const { list, isLoading } = useSelector(selectJokes);
+  const [page, setPage] = useState<number>(1);
+  const isLoading = useSelector(selectJokesLoading);
+  const list = useSelector((state) => selectJokesListPagination(state, page));
+  const { ref, entry } = useIntersection({
+    root: document,
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (!entry?.isIntersecting) return;
+    setPage((prev) => prev + 1);
+  }, [entry]);
 
   if (isLoading) {
     return (
@@ -37,6 +58,7 @@ const JokeList: FC = () => {
         const filled = index < 2;
         return <Joke key={joke.id} joke={joke} filled={filled} />;
       })}
+      <Indicator ref={list.length > 0 ? ref : undefined} />
     </Container>
   );
 };
