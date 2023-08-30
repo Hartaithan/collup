@@ -1,3 +1,4 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { JokesState } from "../../models/JokeModel";
 import { jokesSearch } from "./actions";
@@ -11,7 +12,12 @@ const initialState: JokesState = {
 export const jokesSlice = createSlice({
   name: "jokes",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    resetList: () => initialState,
+  },
   extraReducers: (builder) => {
     builder.addCase(jokesSearch.pending, (state) => {
       state.isLoading = true;

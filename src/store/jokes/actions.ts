@@ -13,4 +13,4 @@ export const jokesSearch = createAsyncThunk<JokeSearchResponse, string>(
   },
 );
 
-export const actions = jokesSlice.actions;
+export const { setLoading, resetList } = jokesSlice.actions;

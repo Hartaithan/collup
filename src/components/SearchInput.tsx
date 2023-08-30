@@ -1,8 +1,9 @@
 import type { ChangeEventHandler, FC } from "react";
+import { useRef } from "react";
 import { styled } from "styled-components";
 import useDebounce from "../hooks/useDebounce";
 import { useDispatch, useSelector } from "../hooks/useStore";
-import { jokesSearch } from "../store/jokes/actions";
+import { jokesSearch, resetList, setLoading } from "../store/jokes/actions";
 import { selectJokesTotal } from "../store/jokes/selectors";
 
 const Wrapper = styled.div`
@@ -38,19 +39,36 @@ const Message = styled.p`
 const SearchInput: FC = () => {
   const dispatch = useDispatch();
   const total = useSelector(selectJokesTotal);
+  let isLoading = useRef<boolean>(false).current;
 
-  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = useDebounce(
-    (e) => {
-      const value = e.target.value;
-      if (value.trim().length < 3) return;
-      dispatch(jokesSearch(value));
-    },
-    500,
-  );
+  const debouncedSearch = useDebounce((value: string) => {
+    if (value.length < 3) return;
+    dispatch(jokesSearch(value))
+      .unwrap()
+      .finally(() => {
+        isLoading = false;
+      });
+  }, 700);
+
+  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value.trim();
+    // при изменении значения ставится флаг о загрузке данных, для предотвращения лишних диспатчей
+    if (!isLoading) {
+      isLoading = true;
+      dispatch(setLoading(true));
+    }
+    // при очистке значения ипута сбрасывается стейт
+    if (value.length === 0) {
+      dispatch(resetList());
+      return;
+    }
+    // дебаунс запроса на поиск, для предотвращения лишних запросов на апи
+    debouncedSearch(value);
+  };
 
   return (
     <Wrapper>
-      <Input placeholder="Search..." onChange={handleSearchChange} />
+      <Input placeholder="Search..." onChange={handleSearchChange} autoFocus />
       {total > 0 && <Message>Found jokes: {total}</Message>}
     </Wrapper>
   );
