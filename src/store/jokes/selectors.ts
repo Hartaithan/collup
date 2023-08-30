@@ -13,6 +13,6 @@ export const selectJokesListPagination = (state: RootState, page: number) => {
   if (page > 1) {
     endIndex = initialSize + (page - 1) * pageSize;
   }
-  if (state.jokes.list === null) return [];
+  if (state.jokes.list === null) return null;
   return state.jokes.list.slice(0, endIndex);
 };

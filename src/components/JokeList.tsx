@@ -30,6 +30,14 @@ const Indicator = styled.div`
   visibility: hidden;
 `;
 
+const Empty = styled.p`
+  margin-top: 32px;
+  text-align: center;
+  @media ${breakpoints.lg} {
+    font-size: 12px;
+  }
+`;
+
 const JokeList: FC = () => {
   const [page, setPage] = useState<number>(1);
   const isLoading = useSelector(selectJokesLoading);
@@ -56,6 +64,10 @@ const JokeList: FC = () => {
   }
 
   if (list === null) return null;
+
+  if (list !== null && list.length === 0) {
+    return <Empty>Nothing Found :(</Empty>;
+  }
 
   return (
     <Container>
