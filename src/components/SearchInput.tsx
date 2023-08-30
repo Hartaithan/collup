@@ -74,7 +74,7 @@ const SearchInput: FC = () => {
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value.trim();
     // при изменении значения ставится флаг о загрузке данных, для предотвращения лишних диспатчей
-    if (!isFetching) {
+    if (!isFetching && value.length >= 3) {
       isFetching = true;
       dispatch(setLoading(true));
     }
