@@ -1,8 +1,11 @@
 import type { FC } from "react";
 import { styled } from "styled-components";
 import { useSelector } from "../hooks/useStore";
-import { selectJokesList } from "../store/jokes/selectors";
+import { selectJokes } from "../store/jokes/selectors";
 import Joke from "./Joke";
+import JokeSkeleton from "./JokeSkeleton";
+
+const loaders = Array.from(Array(5).keys());
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +16,18 @@ const Container = styled.div`
 `;
 
 const JokeList: FC = () => {
-  const list = useSelector(selectJokesList);
+  const { list, isLoading } = useSelector(selectJokes);
+
+  if (isLoading) {
+    return (
+      <Container>
+        {loaders.map((item, index) => {
+          const filled = index < 2;
+          return <JokeSkeleton key={item} filled={filled} />;
+        })}
+      </Container>
+    );
+  }
 
   if (list === null) return null;
 
