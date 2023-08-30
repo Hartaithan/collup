@@ -8,7 +8,7 @@ interface JokeProps {
   filled?: boolean;
 }
 
-const Container = styled.div<JokeProps>`
+const Container = styled.a<JokeProps>`
   display: flex;
   flex-direction: column;
   padding: ${(props) =>
@@ -17,6 +17,8 @@ const Container = styled.div<JokeProps>`
   box-shadow: 0px 7px 25px 0px rgba(100, 100, 111, 0.2);
   width: ${(props) => (props.filled ? "49%" : "32%")};
   flex-grow: 1;
+  color: unset;
+  text-decoration: unset;
 `;
 
 const Content = styled.p<JokeProps>`
@@ -49,8 +51,9 @@ const Date = styled.p`
 
 const Joke: FC<JokeProps> = (props) => {
   const { joke } = props;
+
   return (
-    <Container {...props}>
+    <Container href={joke.url} target="__blank" {...props}>
       <Content {...props}>{joke.value}</Content>
       <Row>
         <Id>{joke.id}</Id>
