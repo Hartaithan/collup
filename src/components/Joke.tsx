@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import type { Joke as IJoke } from "../models/JokeModel";
 import { styled } from "styled-components";
+import { formatDate } from "../helpers/date";
 
 interface JokeProps {
   joke: IJoke;
@@ -53,7 +54,7 @@ const Joke: FC<JokeProps> = (props) => {
       <Content {...props}>{joke.value}</Content>
       <Row>
         <Id>{joke.id}</Id>
-        <Date>{joke.created_at}</Date>
+        <Date>{formatDate(joke.created_at)}</Date>
       </Row>
     </Container>
   );
