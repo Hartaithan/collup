@@ -9,6 +9,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -19,4 +20,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bebebe;
+  border-radius: 10px;
 }
