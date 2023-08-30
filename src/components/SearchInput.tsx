@@ -5,6 +5,7 @@ import useDebounce from "../hooks/useDebounce";
 import { useDispatch, useSelector } from "../hooks/useStore";
 import { jokesSearch, resetList, setLoading } from "../store/jokes/actions";
 import { selectJokesTotal } from "../store/jokes/selectors";
+import { breakpoints } from "../helpers/media-query";
 
 const Wrapper = styled.div`
   position: relative;
@@ -22,6 +23,16 @@ const Input = styled.input`
   padding: 19px 36px 21px 36px;
   font-size: 20px;
   font-weight: 700;
+  @media ${breakpoints.md} {
+    min-width: unset;
+    width: 100%;
+    font-size: 16px;
+    padding: 19px 24px;
+  }
+  @media ${breakpoints.xs} {
+    font-size: 14px;
+    padding: 16px 20px;
+  }
 `;
 
 const Message = styled.p`
@@ -34,6 +45,16 @@ const Message = styled.p`
   font-weight: 400;
   font-family: "Montserrat";
   padding-left: 36px;
+  @media ${breakpoints.md} {
+    min-width: unset;
+    width: 100%;
+    font-size: 14px;
+    padding-left: 24px;
+  }
+  @media ${breakpoints.xs} {
+    font-size: 12px;
+    padding-left: 24px;
+  }
 `;
 
 const SearchInput: FC = () => {

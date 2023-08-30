@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type { Joke as IJoke } from "../models/JokeModel";
 import { styled } from "styled-components";
 import { formatDate } from "../helpers/date";
+import { breakpoints } from "../helpers/media-query";
 
 interface JokeProps {
   joke: IJoke;
@@ -19,6 +20,13 @@ const Container = styled.a<JokeProps>`
   flex-grow: 1;
   color: unset;
   text-decoration: unset;
+  @media ${breakpoints.xl} {
+    padding: 30px 30px 25px 30px;
+    width: 49%;
+  }
+  @media ${breakpoints.md} {
+    padding: 20px;
+  }
 `;
 
 const Content = styled.p<JokeProps>`
@@ -28,6 +36,19 @@ const Content = styled.p<JokeProps>`
   font-weight: 400;
   line-height: 30px;
   margin-bottom: ${(props) => (props.filled ? "60px" : "30px")};
+  word-wrap: break-word;
+  @media ${breakpoints.xl} {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  @media ${breakpoints.md} {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  @media ${breakpoints.xs} {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
 `;
 
 const Row = styled.div`
@@ -40,6 +61,12 @@ const Id = styled.p`
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+  @media ${breakpoints.md} {
+    font-size: 12px;
+  }
+  @media ${breakpoints.xs} {
+    font-size: 10px;
+  }
 `;
 
 const Date = styled.p`
@@ -47,6 +74,12 @@ const Date = styled.p`
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+  @media ${breakpoints.md} {
+    font-size: 12px;
+  }
+  @media ${breakpoints.xs} {
+    font-size: 10px;
+  }
 `;
 
 const Joke: FC<JokeProps> = (props) => {

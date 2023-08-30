@@ -8,6 +8,7 @@ import {
 import Joke from "./Joke";
 import JokeSkeleton from "./JokeSkeleton";
 import { useIntersection } from "../hooks/useIntersection";
+import { breakpoints } from "../helpers/media-query";
 
 const loaders = Array.from(Array(5).keys());
 
@@ -17,6 +18,10 @@ const Container = styled.div`
   margin-top: 100px;
   margin-bottom: 60px;
   gap: 20px;
+  @media ${breakpoints.lg} {
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
 `;
 
 const Indicator = styled.div`

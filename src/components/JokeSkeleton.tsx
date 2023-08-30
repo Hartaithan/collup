@@ -1,4 +1,5 @@
 import { keyframes, styled } from "styled-components";
+import { breakpoints } from "../helpers/media-query";
 
 interface JokeSkeletonProps {
   filled?: boolean;
@@ -23,6 +24,13 @@ const JokeSkeleton = styled.div<JokeSkeletonProps>`
   width: ${(props) => (props.filled ? "49%" : "32%")};
   height: ${(props) => (props.filled ? "250px" : "150px")};
   flex-grow: 1;
+  @media ${breakpoints.xl} {
+    width: 49%;
+    height: 200px;
+  }
+  @media ${breakpoints.md} {
+    height: 100px;
+  }
 `;
 
 export default JokeSkeleton;
