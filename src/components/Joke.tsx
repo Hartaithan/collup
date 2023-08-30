@@ -9,14 +9,18 @@ interface JokeProps {
   filled?: boolean;
 }
 
-const Container = styled.a<JokeProps>`
+interface StyledProps {
+  $filled: boolean;
+}
+
+const Container = styled.a<StyledProps>`
   display: flex;
   flex-direction: column;
-  padding: ${(props) =>
-    props.filled ? "40px 40px 25px 40px" : "30px 30px 25px 30px"};
+  padding: ${({ $filled }) =>
+    $filled ? "40px 40px 25px 40px" : "30px 30px 25px 30px"};
   background: #fff;
   box-shadow: 0px 7px 25px 0px rgba(100, 100, 111, 0.2);
-  width: ${(props) => (props.filled ? "49%" : "32%")};
+  width: ${({ $filled }) => ($filled ? "49%" : "32%")};
   flex-grow: 1;
   color: unset;
   text-decoration: unset;
@@ -29,13 +33,13 @@ const Container = styled.a<JokeProps>`
   }
 `;
 
-const Content = styled.p<JokeProps>`
+const Content = styled.p<StyledProps>`
   flex: 1;
   color: #282626;
-  font-size: ${(props) => (props.filled ? "20px" : "16px")};
+  font-size: ${({ $filled }) => ($filled ? "20px" : "16px")};
   font-weight: 400;
   line-height: 30px;
-  margin-bottom: ${(props) => (props.filled ? "60px" : "30px")};
+  margin-bottom: ${({ $filled }) => ($filled ? "60px" : "30px")};
   word-wrap: break-word;
   @media ${breakpoints.xl} {
     font-size: 16px;
@@ -83,11 +87,11 @@ const Date = styled.p`
 `;
 
 const Joke: FC<JokeProps> = (props) => {
-  const { joke } = props;
+  const { joke, filled = false } = props;
 
   return (
-    <Container href={joke.url} target="__blank" {...props}>
-      <Content {...props}>{joke.value}</Content>
+    <Container href={joke.url} target="__blank" $filled={filled}>
+      <Content $filled={filled}>{joke.value}</Content>
       <Row>
         <Id>{joke.id}</Id>
         <Date>{formatDate(joke.created_at)}</Date>

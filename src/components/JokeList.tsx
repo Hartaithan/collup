@@ -57,7 +57,7 @@ const JokeList: FC = () => {
       <Container>
         {loaders.map((item, index) => {
           const filled = index < 2;
-          return <JokeSkeleton key={item} filled={filled} />;
+          return <JokeSkeleton key={item} $filled={filled} />;
         })}
       </Container>
     );

@@ -2,7 +2,7 @@ import { keyframes, styled } from "styled-components";
 import { breakpoints } from "../helpers/media-query";
 
 interface JokeSkeletonProps {
-  filled?: boolean;
+  $filled?: boolean;
 }
 
 const pulse = keyframes`
@@ -21,8 +21,8 @@ const JokeSkeleton = styled.div<JokeSkeletonProps>`
   animation: ${pulse} 1.5s ease-in-out infinite;
   background: #ffffff;
   box-shadow: 0px 7px 25px 0px rgba(100, 100, 111, 0.2);
-  width: ${(props) => (props.filled ? "49%" : "32%")};
-  height: ${(props) => (props.filled ? "250px" : "150px")};
+  width: ${({ $filled }) => ($filled ? "49%" : "32%")};
+  height: ${({ $filled }) => ($filled ? "250px" : "150px")};
   flex-grow: 1;
   @media ${breakpoints.xl} {
     width: 49%;
